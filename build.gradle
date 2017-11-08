@@ -7,12 +7,14 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("se.transmode.gradle:gradle-docker:1.2")
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
 
 group = 'com.company.challenge'
 version = '0.0.1-SNAPSHOT'
@@ -30,4 +32,24 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile("junit:junit")
 }
+
+docker {
+	baseImage = 'develar/java:latest'
+	maintainer = 'Ruben Trancoso <rubentrancoso@gmail.com>'
+	registry = 'registry.doteva.com'
+}
+
+task buildDocker(type: Docker) {
+  push = project.hasProperty('push')
+  tag = 'registry.doteva.com/concrete/challenge'
+  addFile {
+    from jar
+    rename {'app.jar'}
+  }
+  exposePort(8080)
+  exposePort(9001)
+  entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
+}
+
+buildDocker.dependsOn(build)
 

@@ -33,8 +33,7 @@ public class ApplicationTests {
 	@Test
 	public void shouldReturn200WhenSendingRequestToController() throws Exception {
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-				"http://localhost:" + this.port + "/hello", Map.class);
+		ResponseEntity<Map> entity = this.testRestTemplate.getForEntity("/hello", Map.class);
 		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 		then(entity.getBody().get("message")).isEqualTo("hello");
 	}
@@ -42,8 +41,7 @@ public class ApplicationTests {
 	@Test
 	public void shouldReturn200WhenSendingRequestToManagementEndpoint() throws Exception {
 		@SuppressWarnings("rawtypes")
-		ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-				"http://localhost:" + this.mgt + "/info", Map.class);
+		ResponseEntity<Map> entity = this.testRestTemplate.getForEntity("http://localhost:" + this.mgt + "/info", Map.class);
 		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 
