@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class UUIDUnitTest {
+public class UtUUID {
 	
 	private final String UUID_MASK = "([a-f]|\\d){32}"; // 32 alphanumeric chars
 	private final String UUID_WRONGMASK = "([b-f]|\\d){32}"; // 32 alphanumeric chars
@@ -40,7 +40,6 @@ public class UUIDUnitTest {
 		assertTrue(!matches);
 	}
 
-	
 	@Test
 	public void UUIDIsRandom() {
 		String uuid1 = UUIDGen.getUUID();

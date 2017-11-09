@@ -3,13 +3,13 @@ package com.company.challenge;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import com.company.challenge.helper.UUIDUnitTest;
+import com.company.challenge.helper.UtUUID;
 
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-   UUIDUnitTest.class
+   UtUUID.class
 })
 
-public class UnitTestSuite {   
+public class UtSuite {   
 }  	
