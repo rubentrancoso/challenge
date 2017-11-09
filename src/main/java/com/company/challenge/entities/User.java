@@ -1,5 +1,6 @@
 package com.company.challenge.entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,9 +12,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 import com.company.challenge.helper.UUIDGen;
+import com.company.challenge.repositories.Auditable;
 
 @Entity
-public class User {
+public class User extends Auditable<String> {
 
 	@Id
 	@Column(name = "UUID",unique=true, nullable = false)
@@ -24,6 +26,9 @@ public class User {
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private Set<Phone> phones;
+
+	private Date last_login;
+	private String token;
 	
 	User() {
 		generateId();
@@ -33,12 +38,15 @@ public class User {
 		this.email = email;
 	}
 
+	private void generateId() {
+		this.id = UUIDGen.getUUID();
+	}
+	
     @PrePersist
-    public void generateId() {
-    	this.id = UUIDGen.getUUID();
+    public void onPersist() {
+    	generateId();
     }
-	
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -73,6 +81,26 @@ public class User {
 		return getPhones();
 	}
 
+	public Date getLast_login() {
+		return last_login;
+	}
+
+	public void setLast_login() {
+		this.last_login = new Date();
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		if(this.phones!=null)
@@ -80,7 +108,7 @@ public class User {
 				sb.append(String.format("[phone=(%s) %s],", phone.getDdd(), phone.getNumber()));
 			}
 		String phones = sb.toString();
-		return String.format("[uuid=%s] [email=%s] [phones=%s]", this.id, this.email, phones);
+		return String.format("[uuid=%s] [email=%s] [phones=%s] [created=%tc] [modified=%tc] [last_login=%tcL] [token=%s]", this.id, this.email, phones, this.created, this.modified, this.last_login, this.token);
 	}
 	
 
