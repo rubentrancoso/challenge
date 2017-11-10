@@ -1,11 +1,11 @@
-package com.company.challenge.userapi;
+package com.company.challenge.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import com.company.challenge.repositories.AuditorAwareImpl;
+import com.company.challenge.audit.AuditorAwareImpl;
 
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")

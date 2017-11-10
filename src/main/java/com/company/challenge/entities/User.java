@@ -7,24 +7,35 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.company.challenge.audit.Auditable;
 import com.company.challenge.helper.UUIDGen;
-import com.company.challenge.repositories.Auditable;
 
 @Entity
-public class User extends Auditable<String> {
+public class User extends Auditable<User> {
 
 	@Id
 	@Column(name = "UUID",unique=true, nullable = false)
 	private String id;
 	
+	@NotEmpty
+	@Column(nullable = false)
+	private String name;
+
 	@Column(unique=true)
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	@NotEmpty
+	@Column(nullable = false)
+	private String password;
+
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<Phone> phones;
 
 	private Date last_login;
@@ -34,8 +45,15 @@ public class User extends Auditable<String> {
 		generateId();
 	}
 	
-	public User(String email) {
+	public User(String name, String email) {
+		this.name = name;
 		this.email = email;
+	}
+
+	public User(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
 	}
 
 	private void generateId() {
@@ -62,6 +80,8 @@ public class User extends Auditable<String> {
 	}
 
 	public Set<Phone> getPhones() {
+		if(this.phones == null)
+			this.phones = new HashSet<Phone>();
 		return phones;
 	}
 
@@ -100,6 +120,26 @@ public class User extends Auditable<String> {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setLast_login(Date last_login) {
+		this.last_login = last_login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -111,5 +151,20 @@ public class User extends Auditable<String> {
 		return String.format("[uuid=%s] [email=%s] [phones=%s] [created=%tc] [modified=%tc] [last_login=%tcL] [token=%s]", this.id, this.email, phones, this.created, this.modified, this.last_login, this.token);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) return true;
+		if (obj == null || !(obj instanceof User))
+			return false;
+		User user = (User) obj;
+		return user.getEmail().equals(this.email);
+	}
+	
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + email.hashCode();
+        return result;
+    }	
 
 }

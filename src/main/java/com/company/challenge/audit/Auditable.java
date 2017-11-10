@@ -1,4 +1,4 @@
-package com.company.challenge.repositories;
+package com.company.challenge.audit;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
@@ -15,11 +15,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Auditable<U> {
-
+	
     @CreatedDate
     @Temporal(TIMESTAMP)
     protected Date created;
-
 
     @LastModifiedDate
     @Temporal(TIMESTAMP)

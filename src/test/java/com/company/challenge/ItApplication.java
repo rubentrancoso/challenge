@@ -1,4 +1,6 @@
-package com.company.challenge.userapi;
+package com.company.challenge;
+
+import static org.assertj.core.api.BDDAssertions.then;
 
 import java.util.Map;
 
@@ -14,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.BDDAssertions.then;
+import com.company.challenge.Application;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

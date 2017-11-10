@@ -1,4 +1,4 @@
-package com.company.challenge.repositories;
+package com.company.challenge.audit;
 
 import org.springframework.data.domain.AuditorAware;
 
