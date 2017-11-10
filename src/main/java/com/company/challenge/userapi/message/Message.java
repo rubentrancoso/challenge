@@ -4,6 +4,7 @@ public class Message {
 
 	public static final String EMAIL_ALREADY_TAKEN = "E-mail já existente";
 	public static final String INVALID_USERNAME_PASSWORD = "Usuário e/ou senha inválidos";
+	public static final String NOT_AUTHORIZED = "Não autorizado";
 	
 	private String message;
 	

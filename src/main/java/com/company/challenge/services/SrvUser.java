@@ -46,13 +46,24 @@ public class SrvUser implements ISrvUser {
 		Object result;
 		try {
 			result = userRepository.save(user);
-			logger.info("3. " + result.toString());
 		} catch(DataIntegrityViolationException e) {
 			logger.error(e.getMessage());
 			result = new Message(Message.EMAIL_ALREADY_TAKEN);
 		}
 
 		return result;
+	}
+
+	@Override
+	public Object profile(String uuid, String token) {
+		logger.info("requesting profile...");
+		User user = userRepository.findById(passwordEncoder.encode(uuid));
+		if(user == null) {
+			return new Message(Message.NOT_AUTHORIZED);
+		} else {
+			user.setLast_login();
+			return userRepository.save(user);
+		}
 	}
 
 }

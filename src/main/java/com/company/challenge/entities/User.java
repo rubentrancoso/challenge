@@ -16,8 +16,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.company.challenge.audit.Auditable;
 import com.company.challenge.helper.UUIDGen;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
+@JsonInclude(content=Include.NON_NULL, value=Include.NON_NULL)
 public class User extends Auditable<User> {
 
 	@Id

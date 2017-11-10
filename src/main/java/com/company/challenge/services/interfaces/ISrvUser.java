@@ -6,7 +6,9 @@ import com.company.challenge.entities.User;
 
 @Transactional
 public interface ISrvUser {
-	
+
 	public Object register(User user);
+
+	public Object profile(String uuid, String token);
 
 }

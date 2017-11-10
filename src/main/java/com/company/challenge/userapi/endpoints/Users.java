@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +22,7 @@ public class Users {
 	ISrvUser userService;
 	
     @RequestMapping(path="/register", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE) 
-    public @ResponseBody Object register(User user) {
+    public @ResponseBody Object register(@RequestBody User user) {
     	logger.info(String.format("/registering reguest with email: %s", user.getEmail()));
     	Object message = userService.register(user);
         return message;
