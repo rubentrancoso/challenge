@@ -39,6 +39,8 @@ dependencies {
 	runtime("org.hsqldb:hsqldb")
 	dev('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.json:json')
+	testCompile('org.apache.httpcomponents:httpclient')
 	testCompile("junit:junit")
 }
 

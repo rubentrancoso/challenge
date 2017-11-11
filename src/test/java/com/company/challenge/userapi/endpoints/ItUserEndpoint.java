@@ -2,6 +2,8 @@ package com.company.challenge.userapi.endpoints;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +22,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.company.challenge.Application;
 import com.company.challenge.entities.Phone;
 import com.company.challenge.entities.User;
+import com.company.challenge.helper.Json;
 import com.company.challenge.repositories.UserRepository;
 import com.company.challenge.services.SrvUser;
 import com.company.challenge.userapi.inputs.Credentials;
+
+import net.minidev.json.JSONObject;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -58,16 +63,32 @@ public class ItUserEndpoint {
 		return userService.register(user);
 	}
 	
-//	@Test
-//	public void testRestLogin() throws Exception {
-//		Credentials credentials = new Credentials("email@domain.com", "123456");
-//		Object message = registerUser(credentials.getUsername(), credentials.getPassword());
-//		logger.info("@@@ testRestLogin - User registered: "+ ((User)message).toString());
-//		ResponseEntity<?> response = this.testRestTemplate.postForEntity("/login", credentials, Object.class);
-//		logger.info("@@@ testRestLogin - Login returned: "+ response.getBody());
-//		then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-////		then(((User)entity.getBody()).getEmail()).isEqualTo("email@domain.com");
-//	}
+	@Test
+	public void testRestLogin() throws Exception {
+		Credentials credentials = new Credentials("email@domain.com", "123456");
+		Object message = registerUser(credentials.getUsername(), credentials.getPassword());
+		logger.info("@@@ testRestLogin - User registered: "+ Json.prettyPrint((User)message));
+		ResponseEntity<Object> response = this.testRestTemplate.postForEntity("/login", credentials, Object.class);
+		@SuppressWarnings("unchecked")
+		JSONObject responseBody = new JSONObject((Map<String, ?>) response.getBody());
+		logger.info("@@@ testRestLogin - Login response: "+ Json.prettyPrint(response.getBody()));	
+		then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		then(responseBody.get("email")).isEqualTo("email@domain.com");
+	}
 
+	@Test
+	public void testRestLoginWrongPass() throws Exception {
+		Credentials credentials = new Credentials("email@domain.com", "123456");
+		Object message = registerUser(credentials.getUsername(), credentials.getPassword());
+		logger.info("@@@ testRestLogin - User registered: "+ Json.prettyPrint((User)message));
+		credentials.setPassword("234567");
 
+		ResponseEntity<Object> response = this.testRestTemplate.postForEntity("/login", credentials, Object.class);
+		@SuppressWarnings("unchecked")
+		JSONObject responseBody = new JSONObject((Map<String, ?>) response.getBody());
+		logger.info("@@@ testRestLogin - Login response: "+ Json.prettyPrint(response.getBody()));	
+		then(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+		then(responseBody.get("message")).isEqualTo("Usuário e/ou senha inválidos");
+	}
+	
 }
