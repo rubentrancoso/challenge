@@ -32,7 +32,13 @@ public class SrvAuth implements ISrvAuth {
 	public Object login(Credentials credentials) {
 		logger.info("performing login...");
 		User user = userRepository.findByEmail(credentials.getUsername());
-		if(user == null || !passwordEncoder.matches(credentials.getPassword(), user.getPassword())) {
+		if(
+			user == null ||
+			credentials.getPassword() == null ||
+			credentials.getPassword().isEmpty() ||
+			!passwordEncoder.matches(credentials.getPassword(), user.getPassword())
+		) 
+		{
 			return new Message(Message.INVALID_USERNAME_PASSWORD);
 		} else {
 			user.setLast_login();

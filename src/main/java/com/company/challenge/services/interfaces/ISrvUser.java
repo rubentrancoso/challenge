@@ -9,6 +9,6 @@ public interface ISrvUser {
 
 	public Object register(User user);
 
-	public Object profile(String uuid, String token);
+	public Object profile(String uuid);
 
 }

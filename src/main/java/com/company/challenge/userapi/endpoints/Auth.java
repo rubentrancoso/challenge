@@ -31,6 +31,7 @@ public class Auth {
     	logger.info(String.format("/login reguest for email: %s", credentials.getUsername()));
     	Object message = authService.login(credentials);
     	if(message instanceof Message) {
+    		// For security reasons it will ever respond with UNAUTHORIZED
     		responseCode = HttpStatus.UNAUTHORIZED;
     	} else {
     		((User)message).setToken(null);

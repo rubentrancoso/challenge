@@ -29,6 +29,16 @@ public class SrvUser implements ISrvUser {
 	
 	@Override
 	public Object register(User user) {
+		if(
+			user == null ||
+			user.getEmail() == null ||
+			user.getEmail().isEmpty() ||
+			user.getPassword() == null ||
+			user.getPassword().isEmpty()
+		) 
+		{
+			return new Message(Message.INVALID_USERNAME_PASSWORD);
+		}
 		User newUser = new User(user.getName(), user.getEmail(), user.getPassword());
 		newUser.setPhones(user.getPhones());
 		newUser.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -55,15 +65,9 @@ public class SrvUser implements ISrvUser {
 	}
 
 	@Override
-	public Object profile(String uuid, String token) {
+	public Object profile(String uuid) {
 		logger.info("requesting profile...");
-		User user = userRepository.findById(passwordEncoder.encode(uuid));
-		if(user == null) {
-			return new Message(Message.NOT_AUTHORIZED);
-		} else {
-			user.setLast_login();
-			return userRepository.save(user);
-		}
+		return userRepository.findById(uuid);
 	}
 
 }

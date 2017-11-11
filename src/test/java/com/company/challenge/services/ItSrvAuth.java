@@ -106,5 +106,40 @@ public class ItSrvAuth {
 		logger.info("<<< testEncryptedToken ");
 	}	
 	
+	@Test
+	public void testLoginNullPassword() throws Exception {
+		logger.info(">>> testLoginInvalidPassword ");
+		User user = new User("User Name", "username@email.com");
+		user.setPassword("1234");	
+		Object message = userService.register(user);
+		logger.info("@@@ testLoginInvalidPassword " + message.toString());
+		then(message).isInstanceOf(User.class);
+		logger.info(Json.prettyPrint(message));
+
+		message = authService.login(new Credentials("username@email.com",null));
+		then(message).isInstanceOf(Message.class);
+		then(((Message)message).getMessage()).isEqualTo(Message.INVALID_USERNAME_PASSWORD);
+		logger.info(Json.prettyPrint(message));		
+		logger.info("<<< testLoginInvalidPassword ");
+	}	
+
+	@Test
+	public void testLoginEmptyPassword() throws Exception {
+		logger.info(">>> testLoginInvalidPassword ");
+		User user = new User("User Name", "username@email.com");
+		user.setPassword("1234");	
+		Object message = userService.register(user);
+		logger.info("@@@ testLoginInvalidPassword " + message.toString());
+		then(message).isInstanceOf(User.class);
+		logger.info(Json.prettyPrint(message));
+
+		message = authService.login(new Credentials("username@email.com", ""));
+		then(message).isInstanceOf(Message.class);
+		then(((Message)message).getMessage()).isEqualTo(Message.INVALID_USERNAME_PASSWORD);
+		logger.info(Json.prettyPrint(message));		
+		logger.info("<<< testLoginInvalidPassword ");
+	}	
+
+	
 	
 }

@@ -26,6 +26,7 @@ import com.company.challenge.helper.Json;
 import com.company.challenge.repositories.UserRepository;
 import com.company.challenge.services.SrvUser;
 import com.company.challenge.userapi.inputs.Credentials;
+import com.company.challenge.userapi.message.Message;
 
 import net.minidev.json.JSONObject;
 
@@ -80,15 +81,31 @@ public class ItUserEndpoint {
 	public void testRestLoginWrongPass() throws Exception {
 		Credentials credentials = new Credentials("email@domain.com", "123456");
 		Object message = registerUser(credentials.getUsername(), credentials.getPassword());
-		logger.info("@@@ testRestLogin - User registered: "+ Json.prettyPrint((User)message));
+		logger.info("@@@ testRestLoginWrongPass - User registered: "+ Json.prettyPrint((User)message));
 		credentials.setPassword("234567");
-
 		ResponseEntity<Object> response = this.testRestTemplate.postForEntity("/login", credentials, Object.class);
 		@SuppressWarnings("unchecked")
 		JSONObject responseBody = new JSONObject((Map<String, ?>) response.getBody());
-		logger.info("@@@ testRestLogin - Login response: "+ Json.prettyPrint(response.getBody()));	
+		logger.info("@@@ testRestLoginWrongPass - Login response: "+ Json.prettyPrint(response.getBody()));	
 		then(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
-		then(responseBody.get("message")).isEqualTo("Usuário e/ou senha inválidos");
+		then(responseBody.get("message")).isEqualTo(Message.INVALID_USERNAME_PASSWORD);
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	public void testProfileWithLogin() throws Exception {
+		Credentials credentials = new Credentials("email@domain.com", "123456");
+		Object message = registerUser(credentials.getUsername(), credentials.getPassword());
+		logger.info("@@@ testProfileWithLogin - User registered: "+ Json.prettyPrint((User)message));
+		ResponseEntity<Object> response = this.testRestTemplate.postForEntity("/login", credentials, Object.class);
+		logger.info("@@@ testProfileWithLogin - Login response: "+ Json.prettyPrint(response.getBody()));	
+		JSONObject responseBody = new JSONObject((Map<String, ?>) response.getBody());
+		String uuid = (String)responseBody.get("id");
+		response = this.testRestTemplate.getForEntity(String.format("/profile/%s",uuid), Object.class);
+		logger.info("@@@ testProfileWithLogin - Profile response: "+ Json.prettyPrint(response.getBody()));	
+		responseBody = new JSONObject((Map<String, ?>) response.getBody());
+		then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		then(responseBody.get("id")).isEqualTo(uuid);
 	}
 	
 }
