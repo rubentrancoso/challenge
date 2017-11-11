@@ -18,5 +18,12 @@ extracted from [here](https://dzone.com/articles/continuous-auto-restart-with-sp
 
 ### Auditing entities with created and modified fields
 jpa can help to automatically update entities when they are creted and modified 
+
 extracted from [here](https://programmingmitra.blogspot.com.br/2017/02/automatic-spring-data-jpa-auditing-saving-CreatedBy-createddate-lastmodifiedby-lastmodifieddate-automatically.html)
 
+### RestTesmplate Issue - java.net.HttpRetryException: cannot retry due to server authentication, in streaming mode
+whenever RestTemplate receives a 401 status code it ignores ReponseBody
+
+extracted from [here](https://stackoverflow.com/questions/27341604/exception-when-using-testresttemplate)
+
+###
