@@ -1,2 +1,2 @@
 #!/bin/bash
-./gradlew buildDocker
+./gradlew buildDocker -x test
