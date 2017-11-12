@@ -17,7 +17,6 @@ import com.company.challenge.userapi.message.Message;
 public class SrvAuth implements ISrvAuth {
 
 	private static final Logger logger = LoggerFactory.getLogger(SrvAuth.class);
-
 	
 	private UserRepository userRepository;
 	private PasswordEncoder passwordEncoder;

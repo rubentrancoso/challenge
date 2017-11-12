@@ -13,8 +13,14 @@ import com.company.challenge.repositories.UserRepository;
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackageClasses = { UserRepository.class })
 @EntityScan(basePackages = { "com.company.challenge.entities" })
-@ComponentScan(basePackages = { "com.company.challenge.config", "com.company.challenge.audit", "com.company.challenge.services",
-		"com.company.challenge.userapi.endpoints" })
+@ComponentScan(basePackages = { 
+		"com.company.challenge.config", 
+		"com.company.challenge.audit",
+		"com.company.challenge.services", 
+		"com.company.challenge.userapi.endpoints", 
+		"com.company.challenge.security" 
+	}
+)
 public class Application {
 
 	public static void main(String[] args) {

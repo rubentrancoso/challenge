@@ -34,9 +34,10 @@ dependencies {
     compile ('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-starter-log4j2')
-	compile("org.springframework.boot:spring-boot-starter-data-jpa")
-	compile("org.springframework.security:spring-security-core")
-	runtime("org.hsqldb:hsqldb")
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile("io.jsonwebtoken:jjwt:0.7.0")
+	runtime('org.hsqldb:hsqldb')
 	dev('org.springframework.boot:spring-boot-devtools')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.json:json')
@@ -57,6 +58,7 @@ task buildDocker(type: Docker) {
     from jar
     rename {'app.jar'}
   }
+  addFile( 'config', '/config' )
   exposePort(8080)
   exposePort(9001)
   entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
