@@ -1,4 +1,4 @@
-package com.company.challenge.audit;
+package com.company.challenge.entities.audit;
 
 import static javax.persistence.TemporalType.TIMESTAMP;
 
@@ -12,16 +12,20 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class Auditable<U> {
 	
     @CreatedDate
     @Temporal(TIMESTAMP)
+    @JsonFormat(pattern="EEE yyyy-MM-dd HH:mm:ss.SSSZ")
     protected Date created;
 
     @LastModifiedDate
     @Temporal(TIMESTAMP)
+    @JsonFormat(pattern="EEE yyyy-MM-dd HH:mm:ss.SSSZ")
     protected Date modified;
     
 	public Date getCreated() {

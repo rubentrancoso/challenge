@@ -2,6 +2,8 @@ package com.company.challenge.security;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.company.challenge.config.AntMatcherConfig;
+import com.company.challenge.config.JwtConfig;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -22,6 +25,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
 	AntMatcherConfig antMatcherConfig;
 
+	@Autowired
+	JwtConfig jwtConfig;
+	
 	public WebSecurity(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
 		this.userDetailsService = userDetailsService;
 		this.passwordEncoder = passwordEncoder;
@@ -38,8 +44,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 					.permitAll();
 		}
 		expressionInterceptUrlRegistry.anyRequest().authenticated().and()
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
+				//.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtConfig))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtConfig));
 	}
 
 	@Override

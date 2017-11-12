@@ -84,7 +84,8 @@ public class ItSrvUser {
 		logger.info("@@@ testPassword " + message.toString());
 		then(message).isInstanceOf(User.class);
 		logger.info(Json.prettyPrint(message));
-		then(passwordEncoder.matches("1234", ((User)message).getPassword())).isTrue();
+		user = userRepository.findByEmail(((User)message).getEmail());
+		then(passwordEncoder.matches("1234", user.getPassword())).isTrue();
 		logger.info("<<< testPassword ");
 	}	
 	

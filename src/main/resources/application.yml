@@ -24,10 +24,19 @@ security:
     -
       method: 'POST'
       url: '/login'
+    -
+      method: 'POST'
+      url: '/login2'
+      
+jwt:
+  secret: 'SecretKeyToGenJWTs'
+  expirationTime: 60000 # 1 minuto
+  tokenPrefix: ''
+  headerString: 'Authorization'
 
 ---  
 spring:
-  profiles: ide
+  profiles: debug
   # hsqldb  
   datasource:
     driver-class-name: org.hsqldb.jdbcDriver

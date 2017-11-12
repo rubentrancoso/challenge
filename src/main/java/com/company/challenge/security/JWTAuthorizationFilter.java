@@ -1,9 +1,5 @@
 package com.company.challenge.security;
 
-import static com.company.challenge.security.SecurityConstants.HEADER_STRING;
-import static com.company.challenge.security.SecurityConstants.SECRET;
-import static com.company.challenge.security.SecurityConstants.TOKEN_PREFIX;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,19 +13,24 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import com.company.challenge.config.JwtConfig;
+
 import io.jsonwebtoken.Jwts;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-	public JWTAuthorizationFilter(AuthenticationManager authManager) {
+	private JwtConfig jwtConfig;
+	
+	public JWTAuthorizationFilter(AuthenticationManager authManager, JwtConfig jwtConfig) {
 		super(authManager);
+		this.jwtConfig = jwtConfig;
 	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-		String header = req.getHeader(HEADER_STRING);
-		if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+		String header = req.getHeader(jwtConfig.getHeaderString());
+		if (header == null || !header.startsWith(jwtConfig.getTokenPrefix())) {
 			chain.doFilter(req, res);
 			return;
 		}
@@ -39,10 +40,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	}
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-		String token = request.getHeader(HEADER_STRING);
+		String token = request.getHeader(jwtConfig.getHeaderString());
 		if (token != null) {
 			// parse the token.
-			String user = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody()
+			String user = Jwts.parser().setSigningKey(jwtConfig.getSecret()).parseClaimsJws(token.replace(jwtConfig.getTokenPrefix(), "")).getBody()
 					.getSubject();
 			if (user != null) {
 				return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());

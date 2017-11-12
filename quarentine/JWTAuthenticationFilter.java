@@ -1,14 +1,10 @@
 package com.company.challenge.security;
 
-import static com.company.challenge.security.SecurityConstants.EXPIRATION_TIME;
-import static com.company.challenge.security.SecurityConstants.HEADER_STRING;
-import static com.company.challenge.security.SecurityConstants.SECRET;
-import static com.company.challenge.security.SecurityConstants.TOKEN_PREFIX;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.company.challenge.config.JwtConfig;
 import com.company.challenge.userapi.inputs.Credentials;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,10 +25,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+	
 	private AuthenticationManager authenticationManager;
+	private JwtConfig jwtConfig;
 
-	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JwtConfig jwtConfig) {
 		this.authenticationManager = authenticationManager;
+		this.jwtConfig = jwtConfig;
 	}
 
 	@Override
@@ -50,8 +50,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
 		String token = Jwts.builder().setSubject(((User) auth.getPrincipal()).getUsername())
-				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
-		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+				.setExpiration(new Date(System.currentTimeMillis() + jwtConfig.getExpirationTime()))
+				.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret()).compact();
+		res.addHeader(jwtConfig.getHeaderString(), jwtConfig.getTokenPrefix() + token);
 	}
 }

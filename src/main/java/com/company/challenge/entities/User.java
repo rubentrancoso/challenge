@@ -14,8 +14,9 @@ import javax.persistence.PrePersist;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.company.challenge.audit.Auditable;
+import com.company.challenge.entities.audit.Auditable;
 import com.company.challenge.helper.UUIDGen;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -41,6 +42,7 @@ public class User extends Auditable<User> {
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<Phone> phones;
 
+	@JsonFormat(pattern="EEE yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date last_login;
 	private String token;
 	
