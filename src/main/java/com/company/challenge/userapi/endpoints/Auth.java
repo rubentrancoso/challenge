@@ -34,7 +34,6 @@ public class Auth {
     		// For security reasons it will ever respond with UNAUTHORIZED
     		responseCode = HttpStatus.UNAUTHORIZED;
     	} else {
-    		((User)message).setToken(null);
     		((User)message).setPassword(null);
     	}
         return new ResponseEntity<Object>(message, responseCode);

@@ -26,4 +26,11 @@ whenever RestTemplate receives a 401 status code it ignores ReponseBody
 
 extracted from [here](https://stackoverflow.com/questions/27341604/exception-when-using-testresttemplate)
 
-###
+### Map YAML lists to Objects
+
+extracted from [here](https://www.fortisfio.com/yaml-file-mapping-values-to-object-list-with-spring-boot/)
+
+### JWT authentication
+
+
+extracted from [here](https://dzone.com/articles/implementing-jwt-authentication-on-spring-boot-api)

@@ -9,12 +9,25 @@ management:
   
 logging:
   config: config/log4j2-console.xml
-    
+
+security:
+  antMatchers: 
+    -
+      method: 'GET'
+      url: '/info'
+    -
+      method: 'GET'
+      url: '/hello'
+    -
+      method: 'POST'
+      url: '/register'
+    -
+      method: 'POST'
+      url: '/login'
+
 ---  
 spring:
   profiles: ide
-  application:
-    name: challenge
   # hsqldb  
   datasource:
     driver-class-name: org.hsqldb.jdbcDriver
@@ -32,5 +45,6 @@ logging:
     org.springframework.transaction: DEBUG
     org.springframework.orm.jpa: DEBUG     
 
-
-    
+      
+      
+      
