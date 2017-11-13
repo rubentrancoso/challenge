@@ -24,9 +24,6 @@ security:
     -
       method: 'POST'
       url: '/login'
-    -
-      method: 'POST'
-      url: '/login2'
       
 jwt:
   secret: 'SecretKeyToGenJWTs'
