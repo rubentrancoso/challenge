@@ -23,6 +23,8 @@ Also in the root folder was left 3 exports from POSTMAN that were used to test t
     challenge-local.postman_environment.json
     challenge.postman_collection.json
   
+There's also unit tests and integration tests in the package itself.
+
 The app is running in two addresses:
 
     https://concrete.doteva.com/hello
