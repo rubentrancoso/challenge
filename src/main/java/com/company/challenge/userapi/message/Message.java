@@ -6,6 +6,7 @@ public class Message {
 	public static final String INVALID_USERNAME_PASSWORD = "Usuário e/ou senha inválidos";
 	public static final String NOT_AUTHORIZED = "Não autorizado";
 	public static final String RESOURCE_NOT_FOUND = "Recurso não encontrado";
+	public static final String INVALID_SESSION = "Sessão Inválida";
 	
 	private String message;
 	

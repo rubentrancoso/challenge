@@ -44,7 +44,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			Message message = new Message("Sessão Inválida");
+			Message message = new Message(Message.INVALID_SESSION);
 			ObjectMapper objectMapper= new ObjectMapper();
 			String jsonString = objectMapper.writeValueAsString(message);
 			res.getOutputStream().write(jsonString.getBytes());
@@ -54,7 +54,17 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			Message message = new Message("Não Autorizado");
+			Message message = new Message(Message.NOT_AUTHORIZED);
+			ObjectMapper objectMapper= new ObjectMapper();
+			String jsonString = objectMapper.writeValueAsString(message);
+			res.getOutputStream().write(jsonString.getBytes());
+			res.flushBuffer();
+			return;
+		} catch (io.jsonwebtoken.MalformedJwtException e) {
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			Message message = new Message(Message.NOT_AUTHORIZED);
 			ObjectMapper objectMapper= new ObjectMapper();
 			String jsonString = objectMapper.writeValueAsString(message);
 			res.getOutputStream().write(jsonString.getBytes());
