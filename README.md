@@ -25,12 +25,12 @@ Also in the root folder was left 3 exports from POSTMAN that were used to test t
   
 There's also unit tests and integration tests in the package itself.
 
-The app is running in two addresses:
+The app is running on two addresses:
 
     https://concrete.doteva.com/hello
     http://mail.doteva.org:8081/hello
 
-The urls follow the specification:
+The urls follows the specification:
 
     POST - /register
     POST - /login
