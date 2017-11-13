@@ -41,7 +41,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			expressionInterceptUrlRegistry = expressionInterceptUrlRegistry.antMatchers(antMatcher.getMethod(), antMatcher.getUrl())
 					.permitAll();
 		}
-		expressionInterceptUrlRegistry.anyRequest().authenticated().and()
+		expressionInterceptUrlRegistry.anyRequest().authenticated()
+				.and()
 				//.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtConfig))
 				.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtConfig));
 	}

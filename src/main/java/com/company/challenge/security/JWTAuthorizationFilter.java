@@ -8,12 +8,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.company.challenge.config.JwtConfig;
+import com.company.challenge.userapi.message.Message;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.Jwts;
 
@@ -34,9 +37,31 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 			chain.doFilter(req, res);
 			return;
 		}
-		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		chain.doFilter(req, res);
+		try {
+			UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			chain.doFilter(req, res);
+		} catch (io.jsonwebtoken.ExpiredJwtException e ) {
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			Message message = new Message("Sessão Inválida");
+			ObjectMapper objectMapper= new ObjectMapper();
+			String jsonString = objectMapper.writeValueAsString(message);
+			res.getOutputStream().write(jsonString.getBytes());
+			res.flushBuffer();
+			return;
+		} catch (io.jsonwebtoken.SignatureException e ) {
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			Message message = new Message("Não Autorizado");
+			ObjectMapper objectMapper= new ObjectMapper();
+			String jsonString = objectMapper.writeValueAsString(message);
+			res.getOutputStream().write(jsonString.getBytes());
+			res.flushBuffer();
+			return;
+		}
 	}
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
