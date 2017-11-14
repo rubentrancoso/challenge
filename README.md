@@ -34,7 +34,9 @@ The urls follows the specification:
 
     POST - /register
     POST - /login
-    GET  - /profile/{uuid} - [set](https://github.com/rubentrancoso/challenge/blob/master/src/main/resources/application.yml#L32) header 'Authorization' with token
+    GET  - /profile/{uuid}
+    
+[set](https://github.com/rubentrancoso/challenge/blob/master/src/main/resources/application.yml#L32) header 'Authorization' with token
 
 ### Development Notes
 #### JVM starting to slow
