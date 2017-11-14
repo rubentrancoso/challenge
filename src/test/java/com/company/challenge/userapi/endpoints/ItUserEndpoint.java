@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
@@ -101,7 +104,12 @@ public class ItUserEndpoint {
 		logger.info("@@@ testProfileWithLogin - Login response: "+ Json.prettyPrint(response.getBody()));	
 		JSONObject responseBody = new JSONObject((Map<String, ?>) response.getBody());
 		String uuid = (String)responseBody.get("id");
-		response = this.testRestTemplate.getForEntity(String.format("/profile/%s",uuid), Object.class);
+		String token = (String)responseBody.get("token");
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", token);
+		HttpEntity entity = new HttpEntity(headers);
+		response = this.testRestTemplate.exchange(
+				String.format("/profile/%s",uuid), HttpMethod.GET, entity, Object.class);
 		logger.info("@@@ testProfileWithLogin - Profile response: "+ Json.prettyPrint(response.getBody()));	
 		responseBody = new JSONObject((Map<String, ?>) response.getBody());
 		then(response.getStatusCode()).isEqualTo(HttpStatus.OK);
