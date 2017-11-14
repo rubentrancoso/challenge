@@ -34,7 +34,7 @@ The urls follows the specification:
 
     POST - /register
     POST - /login
-    GET  - /profile/{uuid}
+    GET  - /profile/{uuid} - set header 'Authorization' with token
 
 
 
