@@ -107,6 +107,7 @@ public class ItUserEndpoint {
 		String token = (String)responseBody.get("token");
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", token);
+		@SuppressWarnings("rawtypes")
 		HttpEntity entity = new HttpEntity(headers);
 		response = this.testRestTemplate.exchange(
 				String.format("/profile/%s",uuid), HttpMethod.GET, entity, Object.class);
