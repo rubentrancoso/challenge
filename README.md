@@ -101,13 +101,35 @@ curl --request POST \
     }
   ],
   "last_login": "Tue 2017-11-21 19:53:28.803+0000",
-  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huQGVtYWlsLmNvbSIsImV4cCI6MTUxMTI5NTgwOH0.4Gs6T8e9iboaw04b8Kz8gx1JiEMrGb6Qjp3eytpcGqZxc9yeZ5AjCnR8xnuIIuzNPyzPHxlC63gLF_HfBLPaUw"
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2FvQHNpbHZhLm5ldCIsImV4cCI6MTUxMTI5NjQwOX0.bh9mGuVwJhTECywRbBD2QJ0xuKM6ew__TIgnbjGhI4rhI725LEbVT-aSBc0AztI_7Thlb4tj2fx_HC6s-tPOlw"
 }
 ```
 ### Profile
+#### request
 ```
+curl -X GET \
+  https://concrete.doteva.com/profile/df167b20ce614c8eaf9fa2a2610dea31 \
+  -H 'authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2FvQHNpbHZhLm5ldCIsImV4cCI6MTUxMTI5NjQwOX0.bh9mGuVwJhTECywRbBD2QJ0xuKM6ew__TIgnbjGhI4rhI725LEbVT-aSBc0AztI_7Thlb4tj2fx_HC6s-tPOlw' \
+  -H 'cache-control: no-cache' \
+  -H 'postman-token: 7aaffaab-abda-de27-6741-e0e92ff75bc4'
 ```
-
+#### response
+```
+{
+  "created": "Tue 2017-11-21 20:00:35.885+0000",
+  "modified": "Tue 2017-11-21 20:03:29.938+0000",
+  "id": "df167b20ce614c8eaf9fa2a2610dea31",
+  "name": "Jo\u00e3o da Silva",
+  "email": "joao@silva.net",
+  "phones": [
+    {
+      "ddd": 21,
+      "number": 987654321
+    }
+  ],
+  "last_login": "Tue 2017-11-21 20:03:29.801+0000"
+}
+```
 ### Development Notes
 #### JVM starting to slow
 in the case your jvm is getting much time to start take a look on your `/etc/hosts` file if it contains your actual hostname
