@@ -47,7 +47,7 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{
     "name": "John Doe",
-    "email": "john@email.com",
+    "email": "johndoe@email.com",
     "password": "secret",
     "phones": [
         {
@@ -61,18 +61,18 @@ curl --request POST \
 #### response
 ```
 {
-  "created": "Tue 2017-11-21 19:52:04.651+0000",
-  "modified": "Tue 2017-11-21 19:52:04.651+0000",
-  "id": "535c7b73428e4e2aa22af8a525927dd1",
+  "created": "Tue 2017-11-21 20:12:57.382+0000",
+  "modified": "Tue 2017-11-21 20:12:57.382+0000",
+  "id": "3c5b1cd17bcc41c5ab2081880fd931cc",
   "name": "John Doe",
-  "email": "john@email.com",
+  "email": "johndoe@email.com",
   "phones": [
     {
       "ddd": 21,
       "number": 987654321
     }
   ],
-  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huQGVtYWlsLmNvbSIsImV4cCI6MTUxMTI5NTcyNH0.t-rPxwRFxRfAUtP7o_WdFFnmfhvJDArSKxp5eCVAuD66VygHqMxlAPC8tYB-Tt_eKnG-tKDdg31W-YFoC7H6Tw"
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huZG9lQGVtYWlsLmNvbSIsImV4cCI6MTUxMTI5Njk3N30.G7FIO5jYKbQq9NI5kseSlEdmKCMcoELL39gSCEA5xITF2_qOn4k8vw2cu5CVfAf3jH34QIYYMARl8lll4bpkLQ"
 }
 ```
 ### Login
@@ -82,52 +82,51 @@ curl --request POST \
   --url https://concrete.doteva.com/login \
   --header 'content-type: application/json' \
   --data '{
-    "username": "john@email.com",
+    "username": "johndoe@email.com",
     "password": "secret"
 }'
 ```
 #### response
 ```
 {
-  "created": "Tue 2017-11-21 19:52:04.651+0000",
-  "modified": "Tue 2017-11-21 19:53:28.942+0000",
-  "id": "535c7b73428e4e2aa22af8a525927dd1",
+  "created": "Tue 2017-11-21 20:12:57.382+0000",
+  "modified": "Tue 2017-11-21 20:14:33.739+0000",
+  "id": "3c5b1cd17bcc41c5ab2081880fd931cc",
   "name": "John Doe",
-  "email": "john@email.com",
+  "email": "johndoe@email.com",
   "phones": [
     {
       "ddd": 21,
       "number": 987654321
     }
   ],
-  "last_login": "Tue 2017-11-21 19:53:28.803+0000",
-  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2FvQHNpbHZhLm5ldCIsImV4cCI6MTUxMTI5NjQwOX0.bh9mGuVwJhTECywRbBD2QJ0xuKM6ew__TIgnbjGhI4rhI725LEbVT-aSBc0AztI_7Thlb4tj2fx_HC6s-tPOlw"
+  "last_login": "Tue 2017-11-21 20:14:33.603+0000",
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huZG9lQGVtYWlsLmNvbSIsImV4cCI6MTUxMTI5NzA3M30.7Lu1spSpVCpmwoEbCMJiwPliGCD6nRg8m1Se9M6R136jZHYswI_ALn9X-2u3QCd03DtJKWTRXmyBAo3qCwtmOQ"
 }
 ```
 ### Profile
 #### request
 ```
 curl -X GET \
-  https://concrete.doteva.com/profile/df167b20ce614c8eaf9fa2a2610dea31 \
-  -H 'authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2FvQHNpbHZhLm5ldCIsImV4cCI6MTUxMTI5NjQwOX0.bh9mGuVwJhTECywRbBD2QJ0xuKM6ew__TIgnbjGhI4rhI725LEbVT-aSBc0AztI_7Thlb4tj2fx_HC6s-tPOlw' \
-  -H 'cache-control: no-cache' \
-  -H 'postman-token: 7aaffaab-abda-de27-6741-e0e92ff75bc4'
+  https://concrete.doteva.com/profile/3c5b1cd17bcc41c5ab2081880fd931cc \
+  -H 'authorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huZG9lQGVtYWlsLmNvbSIsImV4cCI6MTUxMTI5NzA3M30.7Lu1spSpVCpmwoEbCMJiwPliGCD6nRg8m1Se9M6R136jZHYswI_ALn9X-2u3QCd03DtJKWTRXmyBAo3qCwtmOQ' \
+  -H 'cache-control: no-cache'
 ```
 #### response
 ```
 {
-  "created": "Tue 2017-11-21 20:00:35.885+0000",
-  "modified": "Tue 2017-11-21 20:03:29.938+0000",
-  "id": "df167b20ce614c8eaf9fa2a2610dea31",
-  "name": "Jo\u00e3o da Silva",
-  "email": "joao@silva.net",
+  "created": "Tue 2017-11-21 20:12:57.382+0000",
+  "modified": "Tue 2017-11-21 20:14:33.739+0000",
+  "id": "3c5b1cd17bcc41c5ab2081880fd931cc",
+  "name": "John Doe",
+  "email": "johndoe@email.com",
   "phones": [
     {
       "ddd": 21,
       "number": 987654321
     }
   ],
-  "last_login": "Tue 2017-11-21 20:03:29.801+0000"
+  "last_login": "Tue 2017-11-21 20:14:33.603+0000"
 }
 ```
 ### Development Notes
