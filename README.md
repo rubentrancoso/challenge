@@ -1,6 +1,8 @@
 # Challenge
 this is the response for this [challenge](https://github.com/concretesolutions/desafio-java)
 
+there's also a new version that I wrote in node js [here](https://github.com/rubentrancoso/challenge-node) with some simplifications.
+
 In the root folder there's some helper scripts. 
 
 The names are self-explanatory:
