@@ -164,3 +164,21 @@ extracted from [here](https://www.fortisfio.com/yaml-file-mapping-values-to-obje
 
 
 extracted from [here](https://dzone.com/articles/implementing-jwt-authentication-on-spring-boot-api)
+
+---
+
+### ✅ Project Compatibility Update
+
+This project was originally developed for Java 8, but due to its age and lack of maintenance, it was no longer compatible with modern environments such as recent versions of Eclipse or terminal-based builds.
+
+A minimal update was made to restore its compatibility, specifically to serve as a **showcase**. The update ensures:
+
+- Compatibility with current development environments.
+- Basic adjustments (e.g., `build.gradle`) to allow building and running without changing the original source code or functionality.
+
+⚠️ **Note:** The `.sh` scripts included in the repository have **not been tested** and may no longer work as expected in current systems.
+
+> This update is meant only to make the project executable again in a modern setup, preserving its original purpose and structure.
+
+
+
