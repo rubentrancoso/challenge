@@ -2,12 +2,12 @@ package com.company.challenge.userapi.message;
 
 public class Message {
 
-	public static final String EMAIL_ALREADY_TAKEN = "E-mail já existente";
-	public static final String INVALID_USERNAME_PASSWORD = "Usuário e/ou senha inválidos";
-	public static final String NOT_AUTHORIZED = "Não autorizado";
-	public static final String RESOURCE_NOT_FOUND = "Recurso não encontrado";
-	public static final String INVALID_SESSION = "Sessão Inválida";
-	
+	public static final String EMAIL_ALREADY_TAKEN = "Email already exists";
+	public static final String INVALID_USERNAME_PASSWORD = "Invalid username and/or password";
+	public static final String NOT_AUTHORIZED = "Not authorized";
+	public static final String RESOURCE_NOT_FOUND = "Resource not found";
+	public static final String INVALID_SESSION = "Invalid session";
+
 	private String message;
 	
 	public Message(String message) {
